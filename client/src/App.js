@@ -1,10 +1,10 @@
+import './App.css';
+import Book from './Book';
 
 function App() {
-
-  const greeting = <div>Hello World!!!</div>;
   return (
     <div className="App">
-      {greeting}
+      <Book />
     </div>
   );
 }
