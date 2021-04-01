@@ -9,9 +9,14 @@ let repository = new BookRepository(connectionPool);
 
 /* POST (Save the book) */
 router.post('/', function (req, res) {
-  console.log('POST BODY', req.body);
+  //console.log('POST BODY', req.body);
 
-  repository.save(req.body);
+  repository.save(req.body, (err, result) => {
+    //If SQL Query Fails
+    if (err) {
+      res.status(500).json({ 'error': err.toString() });
+    }
+  });
   res.sendStatus(200);
 })
 

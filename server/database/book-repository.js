@@ -3,12 +3,9 @@ class BookRepository {
         this.connectionPool = connectionPool;
     }
 
-    save(book) {
-        this.connectionPool.getPool().query('insert into library set ?', book, (err, result) => {
-            if (err) throw err;
-
-            console.log(result);
-        });
+    save(book, callback) {
+        this.connectionPool.getPool().query('insert into library set ?', book, callback);
+        //throw new Error('Something bad happened.');
     }
 
     get(id) {
