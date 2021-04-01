@@ -12,12 +12,12 @@ class BookRepository {
         //throw new Error('Something bad happened.');
     }
 
-    get(id) {
-
+    get(id, callback) {
+        this.pool.query('select * from library where id = ?', id, callback);
     }
 
-    getAll() {
-
+    getAll(callback) {
+        this.pool.query('select * from library', callback);
     }
 
     update(id, book, callback) {
@@ -25,8 +25,8 @@ class BookRepository {
         this.pool.query('update library set ? where id =?', [book, id], callback);
     }
 
-    delete() {
-
+    delete(id, callback) {
+        this.pool.query('delete from library where id = ?', id, callback);
     }
 }
 

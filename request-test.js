@@ -24,18 +24,18 @@ const book = {
 //     console.log(error);
 // });
 
-axios.put('http://localhost:3000/books/114', book)
-.then(response =>{
-    console.log(response);
-})
-.catch(error => {
-    console.log(error);
-});
+// axios.put('http://localhost:3000/books/114', book)
+// .then(response =>{
+//     console.log(response);
+// })
+// .catch(error => {
+//     console.log(error);
+// });
 
-// axios.delete('http://localhost:3000/books/12345')
-//     .then(response => {
-//         console.log(response);
-//     })
-//     .catch(error => {
-//         console.log(error);
-//     });
+axios.delete('http://localhost:3000/books/111')
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        console.log(error);
+    });
