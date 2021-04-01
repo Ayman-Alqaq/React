@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Ayman-Alqaq/React/issues"
   },
-  "homepage": "https://github.com/Ayman-Alqaq/React#readme"
+  "homepage": "https://github.com/Ayman-Alqaq/React#readme",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
 }
