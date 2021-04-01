@@ -3,6 +3,7 @@ const mysql = require('mysql');
 const router = express.Router();
 const connectionPool = require('../database/connection-pool');
 
+/* POST */
 router.post('/', function (req, res) {
   console.log('POST BODY', req.body);
 
@@ -13,9 +14,22 @@ router.post('/', function (req, res) {
   });
 })
 
-/* GET users listing. */
-router.get('/', function (req, res) {
-  res.send('Books found here.');
+/* GET */
+router.get('/:id', function (req, res) {
+  console.log('ID', req.params.id);
+  res.sendStatus(200);
+});
+
+/* PUT */
+router.put('/:id', function (req, res) {
+  console.log('PUT BODY', req.body);
+  res.sendStatus(200);
+});
+
+/* DELETE */
+router.put('/:id', function (req, res) {
+  console.log('ID', req.params.id);
+  res.sendStatus(200);
 });
 
 module.exports = router;
