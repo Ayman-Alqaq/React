@@ -8,13 +8,34 @@ const book = {
     'published': '1985-01-01'
 }
 
-//axios.post('http://localhost:3000/books', book).then(response =>{console.log(response);}).catch(error => {console.log(error);});
-//axios.get('http://localhost:3000/books', book).then(response =>{console.log(response);}).catch(error => {console.log(error);});
-//axios.put('http://localhost:3000/books', book).then(response =>{console.log(response);}).catch(error => {console.log(error);});
-axios.delete('http://localhost:3000/books/12345')
-    .then(response => {
-        console.log(response);
-    })
-    .catch(error => {
-        console.log(error);
-    });
+axios.post('http://localhost:3000/books', book)
+.then(response =>{
+    console.log(response);
+})
+.catch(error => {
+    console.log(error);
+});
+
+// axios.get('http://localhost:3000/books', book)
+// .then(response =>{
+//     console.log(response);
+// })
+// .catch(error => {
+//     console.log(error);
+// });
+
+// axios.put('http://localhost:3000/books', book)
+// .then(response =>{
+//     console.log(response);
+// })
+// .catch(error => {
+//     console.log(error);
+// });
+
+// axios.delete('http://localhost:3000/books/12345')
+//     .then(response => {
+//         console.log(response);
+//     })
+//     .catch(error => {
+//         console.log(error);
+//     });

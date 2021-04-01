@@ -3,15 +3,16 @@ const mysql = require('mysql');
 const router = express.Router();
 const connectionPool = require('../database/connection-pool');
 
-/* POST */
+const BookRepository = require('../database/book-repository');
+
+let repository = new BookRepository(connectionPool);
+
+/* POST (Save the book) */
 router.post('/', function (req, res) {
   console.log('POST BODY', req.body);
 
-  connectionPool.getPool().query('insert into library set ?', req.body, (err, result) => {
-    if (err) throw err;
-
-    console.log(result);
-  });
+  repository.save(req.body);
+  res.sendStatus(200);
 })
 
 /* GET */
