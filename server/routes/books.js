@@ -15,9 +15,10 @@ router.post('/', function (req, res) {
     //If SQL Query Fails
     if (err) {
       res.status(500).json({ 'error': err.toString() });
+    } else {
+      res.sendStatus(200);
     }
   });
-  res.sendStatus(200);
 })
 
 /* GET */
@@ -26,11 +27,17 @@ router.get('/:id', function (req, res) {
   res.sendStatus(200);
 });
 
-/* PUT */
+/* PUT (Update a book)*/
 router.put('/:id', function (req, res) {
-  console.log('PUT BODY', req.body);
-  res.sendStatus(200);
-});
+  repository.update(req.params.id, req.body, (err, result) => {
+    if (err) {
+      res.status(500).json({ 'error': err.toString() });
+    }
+    else {
+      res.sendStatus(200);
+    }
+  });
+})
 
 /* DELETE */
 router.put('/:id', function (req, res) {
