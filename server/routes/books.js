@@ -15,7 +15,17 @@ router.get('/', function(req, res, next) {
 
     if(err) throw err;
 
-    console.log('Connected.')
+    const book = {
+      'author' : 'Charles Dickens',
+      'title' : 'Great Expectations',
+      'published' : '1861-01-01'
+    }
+
+    conn.query('insert into library set ?', book, (err, result) => {
+      if(err) throw err;
+
+      console.log(result);
+    });
   });
 
   res.send('Books found here.');
