@@ -1,6 +1,7 @@
 const db = {
     'user':'reader',
-    'password':'hello'
+    'password':'hello',
+    'host': 'localhost'
 }
 
 module.exports = db;
