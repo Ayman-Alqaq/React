@@ -3,18 +3,27 @@ import axios from 'axios';
 
 class BookLibrary extends React.Component {
 
-    componentDidMount() {
-        this.refresh();
+    //Add Constructor
+    constructor(props) {
+        super(props);
+
+        //Initialize State
+        this.state = {
+            books: [],
+        };
     }
 
-    refresh() {
+    componentDidMount() {
+        // If Server is connected
         axios(process.env.REACT_APP_SERVER_URL)
+            // State Requires a Key Value pair (Books: result.data)
             .then(result => this.setState({ books: result.data }))
-            .catch(error => this.setState({ errorMessage: error.toString() }));
+            .catch(error => console.log(error));
     }
 
 
     render() {
+        console.log('render', this.state.books);
         return (<div>Library</div>)
     }
 }
