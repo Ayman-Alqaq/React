@@ -1,0 +1,46 @@
+/* Header Component */
+.header{
+    background-color: rgba(85, 85, 212, 0.836);
+    height: 4.5em;
+    line-height: 4em;
+    display: grid;
+    /* fr = fraction */
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Unordered List */
+.header>ul{
+    display: inline;
+    margin: 0;
+    list-style-type: none;
+}
+
+/* List Item */
+.header>ul>li{
+    display: inline;
+    margin-right: 1.5em;
+}
+
+/* Hyperlinks */
+.header>ul>li>a{
+    font-size: 1.2em;
+    font-family: sans-serif;
+    font-weight: bold;
+    color:rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+
+/* Logo */
+.header>ul>li.logo{
+    font-size: 2em;
+}
+
+/* Header - Left Item */
+.header-left{
+    justify-self: start;
+}
+
+/* Header - Right Item */
+.header-right{
+    justify-self: end;
+}

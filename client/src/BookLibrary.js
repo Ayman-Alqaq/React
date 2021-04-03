@@ -26,18 +26,14 @@ class BookLibrary extends React.Component {
         let bookList = this.state.books.map(book => {
             return (
                 <tr key={book.id}>
-                    <td>{book.title}</td>
                     <td>{book.author}</td>
+                    <td>{book.title}</td>
                     <td>{book.published}</td>
                 </tr>
             )
         });
 
-        let tHeader = <tr>
-        <th>Title</th><th>Author</th>
-        
-        <th>Published</th>
-    </tr>
+        let tHeader = <tr><th>Author</th><th>Title</th><th>Published</th></tr>;
 
         console.log('render', this.state.books);
         return (
