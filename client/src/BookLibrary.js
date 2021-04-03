@@ -23,8 +23,35 @@ class BookLibrary extends React.Component {
 
 
     render() {
+        let bookList = this.state.books.map(book => {
+            return (
+                <tr key={book.id}>
+                    <td>{book.title}</td>
+                    <td>{book.author}</td>
+                    <td>{book.published}</td>
+                </tr>
+            )
+        });
+
+        let tHeader = <tr>
+        <th>Title</th><th>Author</th>
+        
+        <th>Published</th>
+    </tr>
+
         console.log('render', this.state.books);
-        return (<div>Library</div>)
+        return (
+            <div>
+                <table>
+                    <thead>
+                        {tHeader}
+                    </thead>
+                    <tbody>
+                        {bookList}
+                    </tbody>
+                </table>
+            </div>
+        )
     }
 }
 
