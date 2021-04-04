@@ -30,7 +30,7 @@ class Book extends React.Component {
             author: '',
             title: '',
             published: '',
-            submitAttempt: 0
+            warningCount: 0
         };
 
         //Specifies the change is this function and not the DOM Object
@@ -57,10 +57,13 @@ class Book extends React.Component {
 
         })
         .catch(error => {
-            console.log(error);
+            this.warning("Unable to Load Book.")
         })
     }
 
+    warning(message){
+        this.setState({ message: message, warningCount: this.state.warningCount + 1 });
+    }
 
     //Function for form validation rules
     validate() {
@@ -70,7 +73,7 @@ class Book extends React.Component {
             const value = this.state[field];
 
             if (!value.match(rule)) {
-                this.setState({ message: message, submitAttempt: this.state.submitAttempt + 1 });
+                this.warning(message);
                 return false;
             }
 
@@ -112,7 +115,7 @@ class Book extends React.Component {
                 this.setState({ created: true })
             })
             .catch(error => {
-                console.log(error);
+                this.warning("Unable to Save Book")
             });
 
     }
@@ -144,8 +147,8 @@ class Book extends React.Component {
                     <label htmlFor="published">Published</label>
                     <input value={this.state.published} onChange={this.handleChange} type="text" name="published" id="published" />
                     <input type="submit" value="Save" />
-                    {/* Every time the submit button is pressed, the key value is incremented. */}
-                    <FlashMessage message={this.state.message} duration='3000' key={this.state.submitAttempt}/>
+                    {/* Every time the submit button is pressed, the key value is incremented.  key={this.state.submitAttempt} */}
+                    <FlashMessage message={this.state.message} duration='3000' key={this.state.warningCount}/>
                 </form>
 
             </div>
