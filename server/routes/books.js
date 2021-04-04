@@ -57,7 +57,7 @@ router.delete('/:id', function (req, res) {
 
 /* POST (Save the book) */
 router.post('/', function (req, res) {
-
+  console.log(req.body);
   repository.save(req.body, (err, result) => {
     if (err) {
       res.status(500).json({ 'error': err.toString() });
