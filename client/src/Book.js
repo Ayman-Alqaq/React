@@ -37,23 +37,39 @@ class Book extends React.Component {
 
     //Function for form validation rules
     validate() {
+        
+
         for (let field in this.validation) {
             const rule = this.validation[field].rule;
             const message = this.validation[field].message;
             const value = this.state[field];
 
             if(!value.match(rule)){
-                console.log(field, rule, message, value);
+                this.showMessage(message);
+                return false;
             }
 
-            
         }
+        return true;
+    }
 
+    //Input Flash Message
+    showMessage(message){
+        this.setState({message: message});
+        setTimeout(()=>{
+            this.setState({message:''})
+        },3000);
     }
 
     //POST to Database
     handleSubmit(event) {
-        this.validate();
+
+        //Prevent Rerouting
+        event.preventDefault();
+
+        if(!this.validate()){
+            return;
+        };
         let { author, title, published } = this.state;
 
         published += '-01-01';
@@ -71,8 +87,7 @@ class Book extends React.Component {
             .catch(error => {
                 console.log(error);
             });
-        //Prevent Rerouting
-        event.preventDefault();
+        
     }
 
     handleChange(event) {
@@ -102,7 +117,9 @@ class Book extends React.Component {
                     <label htmlFor="published">Published</label>
                     <input value={this.state.published} onChange={this.handleChange} type="text" name="published" id="published" />
                     <input type="submit" value="Save" />
+                    <div className="message">{this.state.message}</div>
                 </form>
+                
             </div>
         );
     }
