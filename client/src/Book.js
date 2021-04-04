@@ -1,7 +1,7 @@
 import React from 'react';
 import './Book.css';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import FlashMessage from './FlashMessage';
 
 class Book extends React.Component {
@@ -26,6 +26,7 @@ class Book extends React.Component {
         super(props);
 
         this.state = {
+            id: props.match.params.id,
             author: '',
             title: '',
             published: '',
@@ -37,10 +38,32 @@ class Book extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // Allows data to be prefilled when using the EDIT button
+    componentDidMount(){
+        if(!this.state.id){
+            return;
+        }
+
+        axios.get(process.env.REACT_APP_SERVER_URL + '/' + this.state.id)
+        .then(result =>{
+            //Use error handling to handle empty data set
+            let { author, title, published} = result.data[0];
+
+            this.setState({
+                author: author,
+                title: title,
+                published: published.substr(0,4)
+            })
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
+
     //Function for form validation rules
     validate() {
-
-
         for (let field in this.validation) {
             const rule = this.validation[field].rule;
             const message = this.validation[field].message;
@@ -64,17 +87,27 @@ class Book extends React.Component {
         if (!this.validate()) {
             return;
         };
-        let { author, title, published } = this.state;
+        let { id, author, title, published } = this.state;
 
         published += '-01-01';
 
         const book = {
+            id: id,
             author: author,
             title: title,
             published: published
         }
 
-        axios.post(process.env.REACT_APP_SERVER_URL, book)
+        let updateFunc = axios.post;
+        let url = process.env.REACT_APP_SERVER_URL;
+
+        //Allows functionality of Editing entries 
+        if(id){
+            updateFunc = axios.put;
+            url += '/' + id;
+        }
+
+        updateFunc(url, book)
             .then(result => {
                 this.setState({ created: true })
             })
@@ -120,4 +153,4 @@ class Book extends React.Component {
     }
 }
 
-export default Book;
+export default withRouter(Book);
