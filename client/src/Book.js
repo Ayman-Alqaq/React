@@ -2,6 +2,7 @@ import React from 'react';
 import './Book.css';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import FlashMessage from './FlashMessage';
 
 class Book extends React.Component {
 
@@ -27,7 +28,8 @@ class Book extends React.Component {
         this.state = {
             author: '',
             title: '',
-            published: ''
+            published: '',
+            submitAttempt: 0
         };
 
         //Specifies the change is this function and not the DOM Object
@@ -37,28 +39,20 @@ class Book extends React.Component {
 
     //Function for form validation rules
     validate() {
-        
+
 
         for (let field in this.validation) {
             const rule = this.validation[field].rule;
             const message = this.validation[field].message;
             const value = this.state[field];
 
-            if(!value.match(rule)){
-                this.showMessage(message);
+            if (!value.match(rule)) {
+                this.setState({ message: message, submitAttempt: this.state.submitAttempt + 1 });
                 return false;
             }
 
         }
         return true;
-    }
-
-    //Input Flash Message
-    showMessage(message){
-        this.setState({message: message});
-        setTimeout(()=>{
-            this.setState({message:''})
-        },3000);
     }
 
     //POST to Database
@@ -67,7 +61,7 @@ class Book extends React.Component {
         //Prevent Rerouting
         event.preventDefault();
 
-        if(!this.validate()){
+        if (!this.validate()) {
             return;
         };
         let { author, title, published } = this.state;
@@ -87,7 +81,7 @@ class Book extends React.Component {
             .catch(error => {
                 console.log(error);
             });
-        
+
     }
 
     handleChange(event) {
@@ -117,9 +111,10 @@ class Book extends React.Component {
                     <label htmlFor="published">Published</label>
                     <input value={this.state.published} onChange={this.handleChange} type="text" name="published" id="published" />
                     <input type="submit" value="Save" />
-                    <div className="message">{this.state.message}</div>
+                    {/* Every time the submit button is pressed, the key value is incremented. */}
+                    <FlashMessage message={this.state.message} duration='3000' key={this.state.submitAttempt}/>
                 </form>
-                
+
             </div>
         );
     }
