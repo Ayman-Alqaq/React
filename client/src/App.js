@@ -11,7 +11,7 @@ function App() {
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path="/">A
+          <Route exact path="/">
             <BookLibrary />
           </Route>
           <Route path="/create">

@@ -1,8 +1,25 @@
 import React from 'react';
 import './Book.css';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class Book extends React.Component {
+
+    //Regex Validation
+    validation = {
+        author: {
+            rule: /^\S.{0,48}\S$/,
+            message: 'Author field must have 2-50 characters'
+        },
+        title: {
+            rule: /^\S.{0,68}\S$/,
+            message: 'Title field must have 2-70 characters'
+        },
+        published: {
+            rule: /^\d{4}$/,
+            message: 'Published date must be a 4 digit year'
+        }
+    }
 
     constructor(props) {
         super(props);
@@ -18,12 +35,28 @@ class Book extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    //Function for form validation rules
+    validate() {
+        for (let field in this.validation) {
+            const rule = this.validation[field].rule;
+            const message = this.validation[field].message;
+            const value = this.state[field];
+
+            if(!value.match(rule)){
+                console.log(field, rule, message, value);
+            }
+
+            
+        }
+
+    }
+
     //POST to Database
     handleSubmit(event) {
-        //console.log(this.state);
-        let {author, title, published} = this.state;
+        this.validate();
+        let { author, title, published } = this.state;
 
-        published+= '-01-01';
+        published += '-01-01';
 
         const book = {
             author: author,
@@ -32,12 +65,12 @@ class Book extends React.Component {
         }
 
         axios.post(process.env.REACT_APP_SERVER_URL, book)
-        .then(result => {
-            console.log(result);
-        })
-        .catch(error => {
-            console.log(error);
-        });
+            .then(result => {
+                this.setState({ created: true })
+            })
+            .catch(error => {
+                console.log(error);
+            });
         //Prevent Rerouting
         event.preventDefault();
     }
@@ -54,7 +87,9 @@ class Book extends React.Component {
 
 
     render() {
-
+        if (this.state.created) {
+            return <Redirect to="/" />;
+        }
         return (
             <div>
                 {/* onSubmit={this.handleSubmit} <== This is used to handle submissions */}
