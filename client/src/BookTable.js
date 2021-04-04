@@ -1,7 +1,7 @@
 import React from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import './BookTable.css';
+import './css/BookTable.css';
 import { Link } from 'react-router-dom';
 
 function BookTable(props) {

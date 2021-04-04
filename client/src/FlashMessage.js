@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react';
-import './FlashMessage.css';
+import './css/FlashMessage.css';
 
 /* Flash Message component does not understand timeout, but can be understood with a KEY */
 
